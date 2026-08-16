@@ -43,7 +43,13 @@ func (idx *Index) Search(keyword string) []Hit {
 	if len(toks) == 0 {
 		return nil
 	}
-	return idx.term[toks[0]]
+	hits := idx.term[toks[0]]
+	if hits == nil {
+		return nil
+	}
+	out := make([]Hit, len(hits))
+	copy(out, hits)
+	return out
 }
 
 // Count 返回关键词命中的条数。
